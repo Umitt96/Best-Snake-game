@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="container text-light">
+        <div class="row">
+            <div class="col-6">
+                
+                <div class="row">
+                    <div class="col-6"><h2>Score: <span id="score">0</span></h2></div>
+                    <div class="col-6"><h2 id="timerCount">Kalan süre: <span id="time">20</span></h2></div>
+                </div>
+
+                <hr>
+                
+                <h2 class="my-5"><span id="modeText"></span> mode <h2 id="diffText"></h2> </h2>
+            
+                <hr>
+
+
+                  <div class=" my-5 d-flex justify-content-center">
+                    <div class="btn btn-light mx-5 w-50"><a href="#">Devlog video</a></div>
+                    <div class="btn btn-light mx-5 w-50" onclick="window.location.reload();">Reset game</div>
+                  </div>
+             
+                  <hr>
+
+                  <div class="my-5 ml-5 justify-content-around d-flex icons">
+                    <span ><a target="_blank" href="https://www.linkedin.com/in/%C3%BCmit-kaya-47bb24114/"><i class="fa ico1 fa-linkedin">    </i> </a></span>
+                    <span ><a target="_blank" href="https://github.com/Umitt96"><i class="fa ico2 fa-github">       </i> </a></span>
+                    <span ><a target="_blank" href="https://www.instagram.com/umit_ky44/"><i class="fa ico3 fa-instagram">        </i> </a></span>
+                    <span ><a target="_blank" href="https://www.youtube.com/@lyrotech90"><i class="fa ico4 fa-youtube-play"> </i></a> </span>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div class="gameCanvas pulse-element">
+                    <canvas width="600" height="600" id="game"></canvas>
+                </div>
+            </div>
+        </div>
+
+           <!-- Modal -->
+           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content p-2">
+                    <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel">New game</h3>
+                            </div>
+                        <div class="modal-body">
+
+
+                            <h4 class="my-2">Mode selection</h4>
+                            <div class="mods row gx-3">
+                                <div class="col-md-4 text-center">
+                                    <label class="mod-selection">
+                                        <input type="radio"  class="custom-radio" name="mod" checked value="Classic">
+                                        <img src="assets/t1.gif" width="150px" alt="">
+                                        <h3 class="my-3">Classic</h3>
+                                        <div class="container text-secondary fw-bold">
+                                            <p>- Speed increases with bait</p>
+                                            <p>- Limited space</p>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <label class="mod-selection">
+                                        <input type="radio" class="custom-radio"  name="mod" value="Time against">
+                                        <img src="assets/t2.gif" width="150px" alt="">
+                                        <h3 class="my-3">Time against</h3>
+                                        <div class="container text-secondary fw-bold">
+                                            <p>- Rapidly decreasing time</p>
+                                            <p>- No walls</p>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <label class="mod-selection">
+                                        <input type="radio" class="custom-radio"  name="mod" value="Endless">
+                                        <img src="assets/t3.gif" width="150px" alt="">
+                                        <h3 class="my-3">Sonsuz</h3>
+                                        <div class="container text-secondary fw-bold">
+                                            <p>- No restraint</p>
+                                            <p>- No walls</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <hr>
+                                    <h4 class="my-4">Difficulty</h4>
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check visually-hidden" name="difficulty" id="easy" autocomplete="off" value="Kolay">
+                                        <label class="py-2 px-4 btn btn-outline-light" for="easy">Easy</label>
+                                    
+                                        <input type="radio" class="btn-check visually-hidden" name="difficulty" id="medium" autocomplete="off" checked  value="Orta">
+                                        <label class="py-2 px-4 btn btn-outline-light" for="medium">Medium</label>
+                                    
+                                        <input type="radio" class="btn-check visually-hidden" name="difficulty" id="hard" autocomplete="off" value="Zor">
+                                        <label class="py-2 px-4 btn btn-outline-light" for="hard">Hard</label>
+                                    </div>
+                                    <span class="mx-4">*Game difficulty includes snake speed and related variables</span>
+                                </div>
+                        
+                           
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-dark my-3" data-bs-dismiss="modal" onclick="startGame()">Let's Start!</button>
+                        </div>
+                        </div>
+
+                        
+
+
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
+
+                   <!-- Modal2 -->
+                   <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel"><span class="my-3" id="GameOverCond"></span> :( </h3>
+                        </div>
+                        <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <p>Score</p> <h2><span id="goScore"></span></h2>
+                            </div>
+                            <div class="col-6">
+                                <p>High Score</p> <h2><span id="HighScoreText">1000</span></h2>
+                            </div>
+                        </div>
+                        
+                        
+                        <hr>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-dark" onclick="window.location.reload();">Play again</button></div>
+                        </div>
+                    </div>
+                    </div>
+                </div> 
+    </div>
+    <audio id="eatSound" src="assets/eat_1.wav"></audio>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
