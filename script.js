@@ -99,7 +99,7 @@ let timerCount = document.getElementById("timerCount");
           wallCollision = false;
           canvas.style.borderColor = "white"
           break;
-      case "Time-against":
+      case "Time against":
           timerCount.style.display = "block";
           canvas.style.borderColor = "green"
            startCountdownMode(); 
